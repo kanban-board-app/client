@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./pages/login";
+import Board from "./pages/board";
+import Layout from "./components/Layout";
+import { BoardProvider } from "./contexts/BoardContext";
+import BoardDetail from "./pages/board-detail";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <BoardProvider>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route
+            path="/board"
+            element={
+              <Layout>
+                <Board />
+              </Layout>
+            }
+          />
+          <Route
+            path="/board/:boardId"
+            element={
+              <Layout>
+                <BoardDetail />
+              </Layout>
+            }
+          />
+        </Routes>
+      </BoardProvider>
+    </Router>
   );
 }
-
-export default App;
